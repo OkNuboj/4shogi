@@ -12,7 +12,7 @@ end
 
 class Fu1 < Fu
     def self.id
-        6001
+        1001
     end
     def self.place
         [1, 1]
@@ -24,7 +24,7 @@ end
 
 class Fu2 < Fu
     def self.id
-        6002
+        1002
     end
     def self.place
         [1, 2]
@@ -36,7 +36,7 @@ end
 
 class Fu3 < Fu
     def self.id
-        6003
+        1003
     end
     def self.place
         [1, 3]
@@ -48,7 +48,7 @@ end
 
 class Fu4 < Fu
     def self.id
-        6004
+        1004
     end
     def self.place
         [1, 4]
@@ -60,7 +60,7 @@ end
 
 class Fu5 < Fu
     def self.id
-        6005
+        1005
     end
     def self.place
         [1, 5]
@@ -72,7 +72,7 @@ end
 
 class Fu6 < Fu
     def self.id
-        6006
+        1006
     end
     def self.place
         [1, 6]
@@ -84,7 +84,7 @@ end
 
 class Fu7 < Fu
     def self.id
-        6007
+        1007
     end
     def self.place
         [1, 7]
@@ -96,7 +96,7 @@ end
 
 class Fu8 < Fu
     def self.id
-        6008
+        1008
     end
     def self.place
         [1, 8]
@@ -105,7 +105,7 @@ end
 
 class Fu9 < Fu
     def self.id
-        6009
+        1009
     end
     def self.place
         [1, 9]
@@ -117,7 +117,7 @@ end
 
 class Fu10 < Fu
     def self.id
-        6010
+        1010
     end
     def self.place
         [9, 1]
@@ -129,7 +129,7 @@ end
 
 class Fu11 < Fu
     def self.id
-        6011
+        1011
     end
     def self.place
         [9, 2]
@@ -141,7 +141,7 @@ end
 
 class Fu12 < Fu
     def self.id
-        6012
+        1012
     end
     def self.place
         [9, 3]
@@ -153,7 +153,7 @@ end
 
 class Fu13 < Fu
     def self.id
-        6013
+        1013
     end
     def self.place
         [9, 4]
@@ -165,7 +165,7 @@ end
 
 class Fu14 < Fu
     def self.id
-        6014
+        1014
     end
     def self.place
         [9, 5]
@@ -177,7 +177,7 @@ end
 
 class Fu15 < Fu
     def self.id
-        6015
+        1015
     end
     def self.place
         [9, 6]
@@ -189,7 +189,7 @@ end
 
 class Fu16 < Fu
     def self.id
-        6016
+        1016
     end
     def self.place
         [9, 7]
@@ -201,7 +201,7 @@ end
 
 class Fu17 < Fu
     def self.id
-        6017
+        1017
     end
     def self.place
         [9, 8]
@@ -213,7 +213,7 @@ end
 
 class Fu18 < Fu
     def self.id
-        6018
+        1018
     end
     def self.place
         [9, 9]
