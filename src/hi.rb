@@ -2,19 +2,34 @@ require_relative "koma"
 
 class Hi
     include KomaBase
-    def content
+    def self.content
         content = "飛"
     end
-    def naricon
+    def self.naricon
         naricon = "龍"
     end
 end
 
-hi1 = Hi.new
-hi1.id = 6001
-hi1.place = [2, 2]
-hi1.owner = 1
-hi2 = Hi.new
-hi2.id = 6002
-hi2.place = [8, 8]
-hi2.owner = 2
+class Hi1 < Hi
+    def self.id
+        6001
+    end
+    def self.place
+        [2, 2]
+    end
+    def self.owner
+        1
+    end
+end
+
+class Hi2 < Hi
+    def self.id
+        6002
+    end
+    def self.place
+        [8, 8]
+    end
+    def self.owner
+        2
+    end
+end

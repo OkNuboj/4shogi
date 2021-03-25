@@ -1,25 +1,56 @@
 require_relative "koma"
 
-class kin
+class Kin
     include KomaBase
     def content
         content = "金"
     end
 end
 
-kin1 = Kin.new
-kin1.id = 5001
-kin1.place = [1, 4]
-kin1.owner = 1
-kin2 = Kin.new
-kin2.id = 5002
-kin2.place = [1, 6]
-kin2.owner = 1
-kin3 = Kin.new
-kin3.id = 5003
-kin3.place = [9, 4]
-kin3.owner = 2
-kin4 = Kin.new
-kin4.id = 5004
-kin4.place = [9, 6]
-kin4.owner = 2
+class Kin1 < Kin
+    def self.id
+        5001
+    end
+    def self.place
+        [1, 4]
+    end
+    def self.owner
+        1
+    end
+end
+
+class Kin2 < Kin
+    def self.id
+        5002
+    end
+    def self.place
+        [1, 6]
+    end
+    def self.owner
+        1
+    end
+end
+
+class Kin3 < Kin
+    def self.id
+        5003
+    end
+    def self.place
+        [9, 4]
+    end
+    def self.owner
+        2
+    end
+end
+
+class Kin4 < Kin
+    def self.id
+        5004
+    end
+    def self.place
+        [9, 6]
+    end
+    def self.owner
+        2
+    end
+end

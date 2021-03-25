@@ -4,13 +4,32 @@ class Oh
     include KomaBase
 end
 
-oh1 = Oh.new
-oh1.id = 8001
-oh1.place = [1, 5]
-oh1.owner = 1
-oh1.content = "王"
-oh2 = Oh.new
-oh2.id = 8002
-oh2.place = [9, 5]
-oh2.owner = 2
-oh2.content = "玉"
+class Oh1 < Oh
+    def self.content
+        "王"
+    end
+    def self.id
+        8001
+    end
+    def self.place
+        [1, 5]
+    end
+    def self.owner
+        1
+    end
+end
+
+class Oh2 < Oh
+    def self.content
+        "玉"
+    end
+    def self.id
+        8002
+    end
+    def self.place
+        [9, 5]
+    end
+    def self.owner
+        2
+    end
+end

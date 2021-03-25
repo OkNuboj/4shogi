@@ -2,27 +2,58 @@ require_relative "koma"
 
 class Gin
     include KomaBase
-    def content
-        content = "銀"
+    def self.content
+        "銀"
     end
-    def naricon
-        naricon = "全"
+    def self.naricon
+        "全"
     end
 end
 
-gin1 = Gin.new
-gin1.id = 4001
-gin1.place = [1, 3]
-gin1.owner = 1
-gin2 = Gin.new
-gin2.id = 4002
-gin2.place = [1, 7]
-gin2.owner = 1
-gin3 = Gin.new
-gin3.id = 4003
-gin3.place = [9, 3]
-gin3.owner = 1
-gin4 = Gin.new
-gin4.id = 4004
-gin4.place = [9, 7]
-gin4.owner = 1
+class Gin1 < Gin
+    def self.id
+        4001
+    end
+    def self.place
+        [1, 3]
+    end
+    def self.owner
+        1
+    end
+end
+
+class Gin2 < Gin
+    def self.id
+        4002
+    end
+    def self.place
+        [1, 7]
+    end
+    def self.owner
+        1
+    end
+end
+
+class Gin3 < Gin
+    def self.id
+        4003
+    end
+    def self.place
+        [9, 3]
+    end
+    def self.owner
+        2
+    end
+end
+
+class Gin4 < Gin
+    def self.id
+        4004
+    end
+    def self.place
+        [9, 7]
+    end
+    def self.owner
+        2
+    end
+end
