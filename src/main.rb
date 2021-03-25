@@ -26,7 +26,7 @@ board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-puts Hi1.content, Hi2.naricon, Hi1.id, Hi2.place, Hi1.owner
+puts Oh1.content, Kaku2.naricon, Fu11.id, Kin4.place, Gin3.owner
 
 =begin
 winner = 0
