@@ -11,4 +11,6 @@ module KomaBase
     attr_accessor :id
     attr_accessor :place
     attr_accessor :owner
+    attr_accessor :content
+    attr_accessor :naricon
 end

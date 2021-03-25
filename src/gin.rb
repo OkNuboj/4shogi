@@ -2,6 +2,12 @@ require_relative "koma"
 
 class Gin
     include KomaBase
+    def content
+        content = "銀"
+    end
+    def naricon
+        naricon = "全"
+    end
 end
 
 gin1 = Gin.new

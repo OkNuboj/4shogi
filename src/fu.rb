@@ -2,6 +2,12 @@ require_relative "koma"
 
 class Fu
     include KomaBase
+    def content
+        content = "歩"
+    end
+    def naricon
+        naricon = "と"
+    end
 end
 
 fu1 = Fu.new

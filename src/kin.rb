@@ -2,6 +2,9 @@ require_relative "koma"
 
 class kin
     include KomaBase
+    def content
+        content = "金"
+    end
 end
 
 kin1 = Kin.new
