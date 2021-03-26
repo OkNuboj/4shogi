@@ -48,15 +48,6 @@ board = [
     ["　", "　", "　", "　", "　", "　", "　", "　", "　"]
 ]
 
-x = 0, y = 1
-2.times{
-    9.times{
-        Fu.fu[x] = {role1: "歩", role2: "と", place: [y,x+1], id: 101+x, owner: y}
-        x+=1
-    }
-    y+=1
-}
-
 =begin
 winner = 0
 turn = 1
