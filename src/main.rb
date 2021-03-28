@@ -7,6 +7,7 @@ Created by Fukai Satoshi
 王:80n 玉:81n
 =end
 require_relative "judge"
+require_relative "show"
 
 class Koma
     attr_accessor :con
@@ -70,22 +71,7 @@ while 1
     else
         print " - 後手\n"
     end
-
-    puts "────────────────────"
-    for i in 0..9
-        for j in 0..9
-            if koma[board[i][j]].con[:owner] == 1
-                print "\e[31m#{koma[board[i][j]].con[:role1]}\e[0m"
-            elsif koma[board[i][j]].con[:owner] == 2
-                print "\e[36m#{koma[board[i][j]].con[:role1]}\e[0m"
-            else
-                print "#{koma[board[i][j]].con[:role1]}"
-            end
-        end
-        print "\n"
-    end
-    puts "────────────────────"
-
+    Show.show(koma, board)
     print "先手持ち駒: "
     i = 0
     while motiA[i].con != nil
@@ -99,7 +85,7 @@ while 1
         i+=1
     end
     print "\n\n"
-
+#-----------------------------------------------------------------
     #合法手チェック
     print "移動する駒の座標を入力 ⇒  "
     chA = gets.split(' ')
