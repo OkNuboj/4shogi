@@ -1,6 +1,7 @@
+require 'complex'
 module Judge1
     class Judg
-        def self.ment(chA, chB)
+        def self.ment(chA, chB, koma, borad)
             case(chA[:id] / 100)
             when 1
                 if chA[:status] == 1
@@ -10,7 +11,7 @@ module Judge1
                         return 0
                     end
                 else
-                    Judg.kin(chA, chB)
+                    return Judg.kin(chA, chB)
                 end
             when 2
                 if chA[:status] == 1
@@ -20,7 +21,7 @@ module Judge1
                         return 0
                     end
                 else
-                    Judg.kin(chA, chB)
+                    return Judg.kin(chA, chB)
                 end
             when 3
                 if chA[:status] == 0
@@ -32,7 +33,7 @@ module Judge1
                         return 0
                     end
                 else
-                    Judg.kin(chA, chB)
+                    return Judg.kin(chA, chB)
                 end
             when 4
                 if chA[:status] == 0
@@ -48,102 +49,33 @@ module Judge1
                         return 1
                     end
                 else
-                    Judg.kin(chA, chB)
+                    return Judg.kin(chA, chB)
                 end
             when 5
-                Judg.kin(chA, chB)
+                return Judg.kin(chA, chB)
             when 6
-                if chA[:status] == 0
-                    if chA[:place][0] == chB[0] || chA[:place][1] == chB[1]
-                        return 1
-                    else
-                        return 0
-                    end
-                else
-                    if chA[:place][0] == chB[0] || chA[:place][1] == chB[1]
-                        return 1
-                    elsif chA[:place][0]-1 == chB[0] && chA[:place][1]-1 == chB[1]
-                        return 1
-                    elsif chA[:place][0]-1 == chB[0] && chA[:place][1]+1 == chB[1]
-                        return 1
-                    end
-                    Judg.kin(chA, chB)
-                end
+                return Spe::Cial.hi(chA, chB, koma, borad)
             when 7
-                if chA[:status] == 0
-                    Judg.kaku(chA, chB)
-                else
-                    if chA[:place][0]+1 == chB[0] && chA[:place][1]-1 == chB[1]
-                        return 1
-                    elsif chA[:place][0]+1 == chB[0] && chA[:place][1] == chB[1]
-                        return 1
-                    elsif chA[:place][0]+1 == chB[0] && chA[:place][1]+1 == chB[1]
-                        return 1
-                    elsif chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
-                        return 1
-                    elsif chA[:place][0] == chB[0] && chA[:place][1]+1 == chB[1]
-                        return 1
-                    elsif chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
-                        return 1
-                    elsif chA[:place][0]-1 == chB[0] && chA[:place][1]-1 == chB[1]
-                        return 1
-                    elsif chA[:place][0]-1 == chB[0] && chA[:place][1]+1 == chB[1]
-                        return 1
-                    end
-                    Judg.kaku(chA, chB)
-                end
+                return Spe::Cial.kaku(chA, chB, koma, borad)
             when 8
-                if chA[:place][0]-1 == chB[0] && chA[:place][1]-1 == chB[1]
-                    return 1
-                elsif chA[:place][0]-1 == chB[0] && chA[:place][1]+1 == chB[1]
-                    return 1
-                end
-                Judg.kin(chA, chB)
+                return Spe::Cial.oh(chA, chB)
             end
         end
         def self.kin(chA, chB)
             if chA[:place][0]+1 == chB[0] && chA[:place][1]-1 == chB[1]
-                return 1
+                1
             elsif chA[:place][0]+1 == chB[0] && chA[:place][1] == chB[1]
-                return 1
+                1
             elsif chA[:place][0]+1 == chB[0] && chA[:place][1]+1 == chB[1]
-                return 1
+                1
             elsif chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
-                return 1
+                1
             elsif chA[:place][0] == chB[0] && chA[:place][1]+1 == chB[1]
-                return 1
+                1
             elsif chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
-                return 1
+                1
             else
-                return 0
-            end
-        end
-        def self.kaku(chA, chB)
-            ok = 0
-            zen = chA[:place][0] - 1
-            go = 9 - chA[:place][0]
-            for i in 1..zen
-                if chA[:place][0]-i == chB[0] && chA[:place][1]+i == chB[1]
-                    ok = 1
-                    break
-                elsif chA[:place][0]-i == chB[0] && chA[:place][1]-i == chB[1]
-                    ok = 1
-                    break
-                end
-            end
-            for i in 1..go
-                if chA[:place][0]+i == chB[0] && chA[:place][1]+i == chB[1]
-                    ok = 1
-                    break
-                elsif chA[:place][0]+i == chB[0] && chA[:place][1]-i == chB[1]
-                    ok = 1
-                    break
-                end
-            end
-            if ok == 1
-                return 1
-            else
-                return 0
+                0
             end
         end
     end
@@ -151,7 +83,7 @@ end
 
 module Judge2
     class Judg
-        def self.ment(chA, chB)
+        def self.ment(chA, chB, koma, borad)
             case(chA[:id] / 100)
             when 1
                 if chA[:status] == 1
@@ -161,7 +93,7 @@ module Judge2
                         return 0
                     end
                 else
-                    Judg.kin(chA, chB)
+                    return Judg.kin(chA, chB)
                 end
             when 2
                 if chA[:status] == 1
@@ -171,7 +103,7 @@ module Judge2
                         return 0
                     end
                 else
-                    Judg.kin(chA, chB)
+                    return Judg.kin(chA, chB)
                 end
             when 3
                 if chA[:status] == 0
@@ -183,7 +115,7 @@ module Judge2
                         return 0
                     end
                 else
-                    Judg.kin(chA, chB)
+                    return Judg.kin(chA, chB)
                 end
             when 4
                 if chA[:status] == 0
@@ -199,102 +131,238 @@ module Judge2
                         return 1
                     end
                 else
-                    Judg.kin(chA, chB)
+                    return Judg.kin(chA, chB)
                 end
             when 5
-                Judg.kin(chA, chB)
+                return Judg.kin(chA, chB)
             when 6
-                if chA[:status] == 0
-                    if chA[:place][0] == chB[0] || chA[:place][1] == chB[1]
-                        return 1
-                    else
-                        return 0
-                    end
-                else
-                    if chA[:place][0] == chB[0] || chA[:place][1] == chB[1]
-                        return 1
-                    elsif chA[:place][0]+1 == chB[0] && chA[:place][1]-1 == chB[1]
-                        return 1
-                    elsif chA[:place][0]+1 == chB[0] && chA[:place][1]+1 == chB[1]
-                        return 1
-                    end
-                    Judg.kin(chA, chB)
-                end
+                return Spe::Cial.hi(chA, chB, koma, borad)
             when 7
-                if chA[:status] == 0
-                    Judg.kaku(chA, chB)
-                else
-                    if chA[:place][0]+1 == chB[0] && chA[:place][1]-1 == chB[1]
-                        return 1
-                    elsif chA[:place][0]+1 == chB[0] && chA[:place][1] == chB[1]
-                        return 1
-                    elsif chA[:place][0]+1 == chB[0] && chA[:place][1]+1 == chB[1]
-                        return 1
-                    elsif chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
-                        return 1
-                    elsif chA[:place][0] == chB[0] && chA[:place][1]+1 == chB[1]
-                        return 1
-                    elsif chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
-                        return 1
-                    elsif chA[:place][0]-1 == chB[0] && chA[:place][1]-1 == chB[1]
-                        return 1
-                    elsif chA[:place][0]-1 == chB[0] && chA[:place][1]+1 == chB[1]
-                        return 1
-                    end
-                    Judg.kaku(chA, chB)
-                end
+                return Spe::Cial.kaku(chA, chB, koma, borad)
             when 8
-                if chA[:place][0]+1 == chB[0] && chA[:place][1]-1 == chB[1]
-                    return 1
-                elsif chA[:place][0]+1 == chB[0] && chA[:place][1]+1 == chB[1]
-                    return 1
-                end
-                Judg.kin(chA, chB)
+                return Spe::Cial.oh(chA, chB)
             end
         end
         def self.kin(chA, chB)
-            if chA[:place][0]+1 == chB[0] && chA[:place][1]-1 == chB[1]
-                return 1
-            elsif chA[:place][0]+1 == chB[0] && chA[:place][1] == chB[1]
-                return 1
-            elsif chA[:place][0]+1 == chB[0] && chA[:place][1]+1 == chB[1]
-                return 1
-            elsif chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
-                return 1
-            elsif chA[:place][0] == chB[0] && chA[:place][1]+1 == chB[1]
-                return 1
+            if chA[:place][0]-1 == chB[0] && chA[:place][1]-1 == chB[1]
+                1
             elsif chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
-                return 1
+                1
+            elsif chA[:place][0]-1 == chB[0] && chA[:place][1]+1 == chB[1]
+                1
+            elsif chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
+                1
+            elsif chA[:place][0] == chB[0] && chA[:place][1]+1 == chB[1]
+                1
+            elsif chA[:place][0]+1 == chB[0] && chA[:place][1] == chB[1]
+                1
             else
-                return 0
+                0
             end
         end
-        def self.kaku(chA, chB)
-            ok = 0
-            zen = chA[:place][0] - 1
-            go = 9 - chA[:place][0]
-            for i in 1..zen
-                if chA[:place][0]-i == chB[0] && chA[:place][1]+i == chB[1]
-                    ok = 1
-                    break
-                elsif chA[:place][0]-i == chB[0] && chA[:place][1]-i == chB[1]
-                    ok = 1
-                    break
-                end
-            end
-            for i in 1..go
-                if chA[:place][0]+i == chB[0] && chA[:place][1]+i == chB[1]
-                    ok = 1
-                    break
-                elsif chA[:place][0]+i == chB[0] && chA[:place][1]-i == chB[1]
-                    ok = 1
-                    break
-                end
-            end
-            if ok == 1
-                return 1
+    end
+end
+
+module Spe
+    class Cial
+        def self.oh(chA, chB)
+            if chA[:place][0]-1 == chB[0] && chA[:place][1]-1 == chB[1]
+                1
+            elsif chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
+                1
+            elsif chA[:place][0]-1 == chB[0] && chA[:place][1]+1 == chB[1]
+                1
+            elsif chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
+                1
+            elsif chA[:place][0] == chB[0] && chA[:place][1]+1 == chB[1]
+                1
+            elsif chA[:place][0]+1 == chB[0] && chA[:place][1]-1 == chB[1]
+                1
+            elsif chA[:place][0]+1 == chB[0] && chA[:place][1] == chB[1]
+                1
+            elsif chA[:place][0]+1 == chB[0] && chA[:place][1]+1 == chB[1]
+                1
             else
-                return 0
+                0
+            end
+        end
+        def self.hi(chA, chB, koma, borad)
+            if chA[:status] == 1
+                if chA[:place][0] == chB[0] #もし横座標が変わらなかったら（縦移動）
+                    diff = chB[1] - chA[:place][1] #どのくらい縦移動したか
+                    if diff > 1
+                        for i in 1..(diff-1)
+                            if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    elsif diff < -1
+                        for i in (diff+1)..-1
+                            if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    else
+                        if chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
+                            1
+                        elsif chA[:place][0] == chB[0] && chA[:place][1]+1 == chB[1]
+                            1
+                        end
+                    end
+                elsif chA[:place][1] == chB[1] #もし縦座標が変わらなかったら（横移動）
+                    diff = chB[0] - chA[:place][0] #どのくらい横移動したか
+                    if diff > 1
+                        for i in 1..(diff-1)
+                            if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    elsif diff < -1
+                        for i in (diff+1)..-1
+                            if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    else
+                        if chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
+                            1
+                        elsif chA[:place][0]+1 == chB[0] && chA[:place][1] == chB[1]
+                            1
+                        end
+                    end
+                else
+                    0
+                end
+            elsif == 2
+                if chA[:place][0] == chB[0] #もし横座標が変わらなかったら（縦移動）
+                    diff = chB[1] - chA[:place][1] #どのくらい縦移動したか
+                    if diff > 1
+                        for i in 1..(diff-1)
+                            if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    elsif diff < -1
+                        for i in (diff+1)..-1
+                            if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    else
+                        if chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
+                            1
+                        elsif chA[:place][0] == chB[0] && chA[:place][1]+1 == chB[1]
+                            1
+                        end
+                    end
+                elsif chA[:place][1] == chB[1] #もし縦座標が変わらなかったら（横移動）
+                    diff = chB[0] - chA[:place][0] #どのくらい横移動したか
+                    if diff > 1
+                        for i in 1..(diff-1)
+                            if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    elsif diff < -1
+                        for i in (diff+1)..-1
+                            if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    else
+                        if chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
+                            1
+                        elsif chA[:place][0]+1 == chB[0] && chA[:place][1] == chB[1]
+                            1
+                        end
+                    end
+                else
+                    Cial.oh(chA, chB)
+                end
+            end
+        end
+        def self.kaku(chA, chB, koma, borad)
+            diff0 = chB[0] - chA[:place][0]
+            diff1 = chB[1] - chA[:place][1]
+            diff2 = diff1*-1
+            if diff0 == diff1 || diff0 == diff2
+                if chA[:status] == 1
+                    if diff0 > 0 && diff1 > 0
+                        for i in 1..diff0
+                            if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    end
+                    elsif diff0 > 0 && diff1 < 0
+                        for i in 1..diff0
+                            if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    elsif diff0 < 0 && diff1 > 0
+                        for i in 1..diff1
+                            if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    elsif diff0 < 0 && diff1 < 0
+                        for i in 1..diff1
+                            if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    else
+                        0
+                    end
+                elsif chA[:status] == 2
+                    if diff0 > 0 && diff1 > 0
+                        for i in 1..diff0
+                            if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    end
+                    elsif diff0 > 0 && diff1 < 0
+                        for i in 1..diff0
+                            if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    elsif diff0 < 0 && diff1 > 0
+                        for i in 1..diff1
+                            if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    elsif diff0 < 0 && diff1 < 0
+                        for i in 1..diff1
+                            if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
+                                0
+                            end
+                        end
+                        1
+                    else
+                        Cial.oh(chA, chB)
+                    end
+                end
+            else
+                0
             end
         end
     end

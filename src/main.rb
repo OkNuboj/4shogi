@@ -11,9 +11,9 @@ require_relative "show"
 require_relative "judge"
 
 koma = Array.new(1000).map{0}
-moti1 = Array.new(40); moti2 = Array.new(40); moti = [0, moti1, moti2]
+moti1 = Array.new(40).map{0}; moti2 = Array.new(40).map{0}; moti = [0, moti1, moti2]
 pow1 = 0; pow2 = 0; pow = [0, pow1, pow2]
-winner = 0; player = 1; turn = 1; tik = 1;
+winner = 0; player = 1; enemy = 2; turn = 1; tik = 1; nari = "a"
 
 #空き駒、壁駒の初期設定
 koma[0] = {role1: "　", id: 0, owner: 0}
@@ -36,6 +36,7 @@ koma[16] = {role1: "六", id: 16, owner: -1}
 koma[17] = {role1: "七", id: 17, owner: -1}
 koma[18] = {role1: "八", id: 18, owner: -1}
 koma[19] = {role1: "九", id: 19, owner: -1}
+koma[20] = {role1: "│", id: 19, owner: -1}
 
 #駒の初期設定
 for i in 0..17
@@ -55,52 +56,52 @@ end
 
 #将棋盤の初期設定
 board = [
-    [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-    [1, 201, 301, 401, 501, 801, 502, 402, 302, 202], 
-    [2, 0, 601, 0, 0, 0, 0, 0, 701, 0], 
-    [3, 101, 102, 103, 104, 105, 106, 107, 108, 109], 
-    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    [5, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    [6, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    [7, 110, 111, 112, 113, 114, 115, 116, 117, 118], 
-    [8, 0, 702, 0, 0, 0, 0, 0, 602, 0], 
-    [9, 203, 303, 403, 503, 802, 504, 404, 304, 204]
+    [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], 
+    [1, 201, 301, 401, 501, 801, 502, 402, 302, 202, 20], 
+    [2, 0, 601, 0, 0, 0, 0, 0, 701, 0, 20], 
+    [3, 101, 102, 103, 104, 105, 106, 107, 108, 109, 20], 
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20], 
+    [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20], 
+    [6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20], 
+    [7, 110, 111, 112, 113, 114, 115, 116, 117, 118, 20], 
+    [8, 0, 702, 0, 0, 0, 0, 0, 602, 0, 20], 
+    [9, 203, 303, 403, 503, 802, 504, 404, 304, 204, 20]
 ]
 
 #∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽
 
 #対局開始
+puts "\e[H\e[2J"
 while 1
     hoge1 = 0; hoge2 = "a"; hoge3 = 0; judge = 0
 
     #∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽
     #画面表示
-
-    #局数表示
-    print "\e[7m#{turn}局目"
-    if player == 1
-        print " - 先手\e[0m (▼先手 / ▲後手)\n"
-    else
-        print " - 後手\e[0m (▼先手 / ▲後手)\n"
-    end
-
-    #将棋盤表示
-    Show.show(koma, board)
+    Show.show(koma, board, turn, player)
 
     #持ち駒表示
     print "11　先手持ち駒: "
-    i = 0
-    while moti[1][i] != nil
-        print "#{i}: #{moti[1][i][:role1]} "
-        i+=1
+    if pow[1] > 0
+        if pow[1] > 1
+            for i in 1..pow[1]
+                print "#{moti[1][i][:role1]} "
+            end
+            print "\n"
+        else
+            print "#{moti[1][1][:role1]} \n"
+        end
     end
-    print "\n12　後手持ち駒: "
-    i = 0
-    while moti[2][i] != nil
-        print "#{i}: #{moti[2][i][:role1]} "
-        i+=1
+    print "12　後手持ち駒: "
+    if pow[2] > 0
+        if pow[2] > 1
+            for i in 1..pow[2]
+                print "#{moti[2][i][:role1]} "
+            end
+            print "\n\n"
+        else
+            print "#{moti[2][1][:role1]} \n\n"
+        end
     end
-    print "\n\n"
 
     #∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽
     #合法手チェック
@@ -139,13 +140,13 @@ while 1
                 break
             end
         else #自駒を動かす
-            if koma[board[chB[0]][chB[1]]][:owner] != player && koma[board[chB[0]][chB[1]]][:owner] != -1
+            if koma[board[chB[0]][chB[1]]][:owner] == 0 || koma[board[chB[0]][chB[1]]][:owner] == enemy
                 if player == 1
-                    if Judge1::Judg.ment(koma[board[chA[0]][chA[1]]], chB) == 1
+                    if Judge1::Judg.ment(koma[board[chA[0]][chA[1]]], chB, koma, borad) == 1
                         break
                     end
                 elsif player == 2
-                    if Judge2::Judg.ment(koma[board[chA[0]][chA[1]]], chB) == 1
+                    if Judge2::Judg.ment(koma[board[chA[0]][chA[1]]], chB, koma, borad) == 1
                         break
                     end
                 end
@@ -166,10 +167,32 @@ while 1
             koma[board[chA[0]][chA[1]]][:status] = 1
         end
     else
-        if koma[board[chB[0]][chB[1]]][:owner] != player #移動先に敵の駒がいる場合
-            moti[turn][pow[turn]] = koma[board[chB[0]][chB[1]]]
-            pow[turn] += 1
-
+        if koma[board[chA[0]][chA[1]]][:status] == 1 #成る
+            if player == 1
+                if chB[0] >= 7
+                    print "成りますか？ [y/n]"
+                    nari = gets.chomp
+                    if nari == "y"
+                        hoge2 = koma[board[chA[0]][chA[1]]][:role1]
+                        koma[board[chA[0]][chA[1]]][:role1] = koma[board[chA[0]][chA[1]]][:role2]
+                        koma[board[chA[0]][chA[1]]][:role2] = hoge2
+                    end
+                end
+            elsif player == 2
+                if chB[0] <= 3
+                    print "成りますか？ [y/n]"
+                    nari = gets.chomp
+                    if nari == "y"
+                        hoge2 = koma[board[chA[0]][chA[1]]][:role1]
+                        koma[board[chA[0]][chA[1]]][:role1] = koma[board[chA[0]][chA[1]]][:role2]
+                        koma[board[chA[0]][chA[1]]][:role2] = hoge2
+                    end
+                end
+            end
+        end
+        if koma[board[chB[0]][chB[1]]][:owner] == enemy #移動先に敵の駒がいる場合
+            moti[player][pow[player]] = koma[board[chB[0]][chB[1]]]
+            pow[player] += 1
             koma[board[chB[0]][chB[1]]][:owner] == player #敵の駒を持ち駒にする
             if koma[board[chB[0]][chB[1]]][:status] == 2 #成っていた場合戻す
                 hoge2 = koma[board[chB[0]][chB[1]]][:role1]
@@ -177,20 +200,23 @@ while 1
                 koma[board[chB[0]][chB[1]]][:role2] = hoge2
             end
             koma[board[chB[0]][chB[1]]][:status] = 0
-
             board[chB[0]][chB[1]] = board[chA[0]][chA[1]]
             board[chA[0]][chA[1]] = 0
         else #空きマスに移動する場合
-            hoge1 = board[chB[0]][hB[1]]
+            hoge1 = board[chB[0]][chB[1]]
             board[chB[0]][chB[1]] = board[chA[0]][chA[1]]
             board[chA[0]][chA[1]] = hoge1
         end
     end
     #∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽
 
-    winner = gets.chomp.to_i
+    #王が取られているか確認
+    if koma[800+enemy][:status] == 0
+        winner = player
+    end
 
-    tik += 1; turn += tik%2; player = 2-tik%2
+    #turn加算
+    tik += 1; turn += tik%2; player = 2-tik%2; enemy = 1+tik%2
 
     #画面消去
     puts "\e[H\e[2J"
