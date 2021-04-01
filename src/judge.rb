@@ -237,7 +237,7 @@ module Spe
                 else
                     0
                 end
-            elsif == 2
+            elsif chA[:status] == 2
                 if chA[:place][0] == chB[0] #もし横座標が変わらなかったら（縦移動）
                     diff = chB[1] - chA[:place][1] #どのくらい縦移動したか
                     if diff > 1
@@ -361,6 +361,8 @@ module Spe
                         Cial.oh(chA, chB)
                     end
                 end
+            rescue
+                0
             else
                 0
             end
