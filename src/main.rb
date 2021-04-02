@@ -11,7 +11,11 @@ require_relative "show"
 require_relative "judge"
 
 koma = Array.new(1000).map{0}
-moti1 = Array.new(40).map{0}; moti2 = Array.new(40).map{0}; moti = [0, moti1, moti2]
+moti = [
+    [0], 
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
 pow1 = 0; pow2 = 0; pow = [0, pow1, pow2]
 winner = 0; player = 1; enemy = 2; turn = 1; tik = 1; nari = "a"
 
@@ -84,23 +88,27 @@ while 1
     if pow[1] > 0
         if pow[1] > 1
             for i in 1..pow[1]
-                print "#{moti[1][i][:role1]} "
+                print "#{i}:#{moti[1][i][:role1]} "
             end
             print "\n"
         else
-            print "#{moti[1][1][:role1]} \n"
+            print "1:#{moti[1][0][:role1]} \n"
         end
+    else
+        print "\n"
     end
     print "12　後手持ち駒: "
     if pow[2] > 0
         if pow[2] > 1
             for i in 1..pow[2]
-                print "#{moti[2][i][:role1]} "
+                print "#{i}:#{moti[2][i][:role1]} "
             end
             print "\n\n"
         else
-            print "#{moti[2][1][:role1]} \n\n"
+            print "1:#{moti[2][0][:role1]} \n\n"
         end
+    else
+        print "\n\n"
     end
 
     #∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽
@@ -142,11 +150,11 @@ while 1
         else #自駒を動かす
             if koma[board[chB[0]][chB[1]]][:owner] == 0 || koma[board[chB[0]][chB[1]]][:owner] == enemy
                 if player == 1
-                    if Judge1::Judg.ment(koma[board[chA[0]][chA[1]]], chB, koma, borad) == 1
+                    if Judge1::Judg.ment(koma[board[chA[0]][chA[1]]], chB, koma, board) == 1
                         break
                     end
                 elsif player == 2
-                    if Judge2::Judg.ment(koma[board[chA[0]][chA[1]]], chB, koma, borad) == 1
+                    if Judge2::Judg.ment(koma[board[chA[0]][chA[1]]], chB, koma, board) == 1
                         break
                     end
                 end
