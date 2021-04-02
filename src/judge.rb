@@ -187,23 +187,34 @@ module Spe
             end
         end
         def self.hi(chA, chB, koma, borad)
+            ok = 1
             if chA[:status] == 1
                 if chA[:place][0] == chB[0] #もし横座標が変わらなかったら（縦移動）
                     diff = chB[1] - chA[:place][1] #どのくらい縦移動したか
                     if diff > 1
                         for i in 1..(diff-1)
                             if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff < -1
                         for i in (diff+1)..-1
                             if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     else
                         if chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
                             1
@@ -216,17 +227,27 @@ module Spe
                     if diff > 1
                         for i in 1..(diff-1)
                             if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff < -1
                         for i in (diff+1)..-1
                             if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     else
                         if chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
                             1
@@ -243,17 +264,27 @@ module Spe
                     if diff > 1
                         for i in 1..(diff-1)
                             if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff < -1
                         for i in (diff+1)..-1
                             if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     else
                         if chA[:place][0] == chB[0] && chA[:place][1]-1 == chB[1]
                             1
@@ -266,17 +297,27 @@ module Spe
                     if diff > 1
                         for i in 1..(diff-1)
                             if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff < -1
                         for i in (diff+1)..-1
                             if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     else
                         if chA[:place][0]-1 == chB[0] && chA[:place][1] == chB[1]
                             1
@@ -293,37 +334,57 @@ module Spe
             diff0 = chB[0] - chA[:place][0]
             diff1 = chB[1] - chA[:place][1]
             diff2 = diff1*-1
+            ok = 1
             if diff0 == diff1 || diff0 == diff2
                 if chA[:status] == 1
                     if diff0 > 0 && diff1 > 0
                         for i in 1..diff0
                             if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
-                    end
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff0 > 0 && diff1 < 0
                         for i in 1..diff0
                             if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff0 < 0 && diff1 > 0
                         for i in 1..diff1
                             if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff0 < 0 && diff1 < 0
-                        for i in 1..diff1
+                        for i in diff1..-1
                             if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     else
                         0
                     end
@@ -331,38 +392,55 @@ module Spe
                     if diff0 > 0 && diff1 > 0
                         for i in 1..diff0
                             if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
-                    end
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff0 > 0 && diff1 < 0
                         for i in 1..diff0
                             if koma[board[chA[:place][0]+i][chA[:place][1]]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff0 < 0 && diff1 > 0
                         for i in 1..diff1
                             if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     elsif diff0 < 0 && diff1 < 0
-                        for i in 1..diff1
+                        for i in diff1..-1
                             if koma[board[chA[:place][0]][chA[:place][1]+i]][:owner] != 0
-                                0
+                                ok = 0
+                                break
                             end
                         end
-                        1
+                        if ok == 0
+                            0
+                        else
+                            1
+                        end
                     else
                         Cial.oh(chA, chB)
                     end
                 end
-            rescue
-                0
             else
                 0
             end
