@@ -1,4 +1,3 @@
-require 'complex'
 module Judge1
     class Judg
         def self.ment(chA, chB, koma, board)
