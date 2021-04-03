@@ -4,7 +4,7 @@ module Show
         print "\e[1m#{turn}局目: "
         if player == 1
             print "\e[31m先手\e[0m (\e[31m▼先手\e[0m/\e[36m▲後手\e[0m)\n"
-        else
+        elsif player == 2
             print "\e[36m後手\e[0m (\e[31m▼先手\e[0m/\e[36m▲後手\e[0m)\n"
         end
         

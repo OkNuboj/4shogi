@@ -16,7 +16,7 @@ moti = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
-pow1 = 0; pow2 = 0; pow = [0, pow1, pow2]
+pow1 = 1; pow2 = 1; pow = [0, pow1, pow2]
 winner = 0; player = 1; enemy = 2; turn = 1; tik = 1; nari = "a"
 
 #空き駒、壁駒の初期設定
@@ -118,13 +118,13 @@ while 1
         print "移動する駒の座標を入力 ⇒  "
         ch = gets.to_i
         chA = [ch/10, ch%10]
-        if koma[board[chA[0]][chA[1]]][:owner] == player
-            if koma[board[chA[0]][chA[1]]][:status] == 0 #持ち駒を選択したら
-                hoge3 = 1
-                break
-            else
+        if chA[0] < 10
+            if koma[board[chA[0]][chA[1]]][:owner] == player
                 break
             end
+        else player == chA[0]-10 && chA[1] <= pow[player]
+            hoge3 = 1
+            break
         end
         puts "自分の駒を選択してください"
     end
@@ -134,18 +134,24 @@ while 1
         ch = gets.to_i
         chB = [ch/10, ch%10]
         if hoge3 == 1 #持ち駒を打つ
-            if koma[board[chB[0]][chB[1]]][:id] / 100 == 1 || koma[board[chB[0]][chB[1]]][:id] / 100 == 2 #打ち歩詰め
+            if moti[player][chA[1]][:id] / 100 == 1 || moti[player][chA[1]][:id] / 100 == 2 #打ち歩詰め
                 if player == 1
                     if chB[0] != 9
-                        break
+                        if koma[board[chB[0]][chB[1]]][:owner] == 0
+                            break
+                        end
                     end
                 elsif player == 2
                     if chB[0] != 1
-                        break
+                        if koma[board[chB[0]][chB[1]]][:owner] == 0
+                            break
+                        end
                     end
                 end
             else
-                break
+                if koma[board[chB[0]][chB[1]]][:owner] == 0
+                    break
+                end
             end
         else #自駒を動かす
             if koma[board[chB[0]][chB[1]]][:owner] == 0 || koma[board[chB[0]][chB[1]]][:owner] == enemy
@@ -167,13 +173,22 @@ while 1
     #駒移動
 
     if hoge3 == 1 #持ち駒を打つ
-        board[chB[0]][chB[1]] = koma[board[chA[0]][chA[1]]][:id]
-        koma[board[chA[0]][chA[1]]][:place] = chB
-        if koma[board[chA[0]][chA[1]]][:id] / 100 == 5 || koma[board[chA[0]][chA[1]]][:id] / 100 == 8
-            koma[board[chA[0]][chA[1]]][:status] = 3
+        board[chB[0]][chB[1]] = moti[player][chA[1]]
+        if moti[player][chA[1]][:id] / 100 == 5 || koma[board[chB[0]][chB[1]]][:id] / 100 == 8
+            koma[board[chB[0]][chB[1]]][:status] = 3
         else
-            koma[board[chA[0]][chA[1]]][:status] = 1
+            koma[board[chB[0]][chA[1]]][:status] = 1
         end
+        hoge4 = pow[player] - chA[1]
+        if hoge4 > 1
+            for i in 1..hoge4
+                moti[player][chA[1]+i-1] =  moti[player][chA[1]+i]
+            end
+        elsif hoge4 == 1
+            moti[player][chA[1]] =  moti[player][player]
+        end
+        pow[player] -= 1
+
     else
         if koma[board[chA[0]][chA[1]]][:status] == 1 #成る
             if player == 1
