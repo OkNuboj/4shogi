@@ -24,3 +24,22 @@ module Show
         puts "────────────────────"
     end
 end
+
+module Show1
+    def self.show(koma, board)        
+        puts "────────────────────"
+        for i in 1..9
+            for j in 1..9
+                if koma[board[i][j]][:owner] == 1
+                    print "\e[31m#{koma[board[i][j]][:owner]}\e[0m"
+                elsif koma[board[i][j]][:owner] == 2
+                    print "\e[36m#{koma[board[i][j]][:owner]}\e[0m"
+                else
+                    print "#{koma[board[i][j]][:owner]}"
+                end
+            end
+            print "\n"
+        end
+        puts "────────────────────"
+    end
+end
