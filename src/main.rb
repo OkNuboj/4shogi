@@ -24,7 +24,8 @@ moti = [
 pow = Array.new(5).map{0}
 
 #その他
-winner = 0; player = 1; turn = 1; tik = 1;
+winner = 0; turn = 1; tik = 0;
+player = 1; enemy1 = 2; enemy2 = 3; enemy3 = 4
 
 #空き駒、壁駒の初期設定
 koma[0] = {role1: "　", id: 0, owner: 0}
@@ -83,13 +84,13 @@ for i in 0..3
 end
 
 for i in 0..1
-    koma[601+i] = {role1: "飛", role2: "龍", status: 1, place: [5+i*6, 5+i%2*6], id: 601+i, owner: i*2+1}
-    koma[701+i] = {role1: "角", role2: "馬", status: 1, place: [5+i*6, 13-i%2*6], id: 701+i, owner: i*2+1}
-    koma[801+i] = {role1: "王", status: 3, place: [1+i*14, 5], id: 801+i, owner: i*2+1}
+    koma[601+i] = {role1: "飛", role2: "龍", status: 1, place: [2+i*12, 5+i%2*6], id: 601+i, owner: i*2+1}
+    koma[701+i] = {role1: "角", role2: "馬", status: 1, place: [2+i*12, 11-i%2*6], id: 701+i, owner: i*2+1}
+    koma[801+i] = {role1: "王", status: 3, place: [1+i*14, 8], id: 801+i, owner: i*2+1}
 
-    koma[603+i] = {role1: "飛", role2: "龍", status: 1, place: [5+i%2*6, 14+i*6], id: 603+i, owner: 4-i*2}
-    koma[703+i] = {role1: "角", role2: "馬", status: 1, place: [13-i%2*6, 14+i*6], id: 703+i, owner: 4-i*2}
-    koma[803+i] = {role1: "王", status: 3, place: [5, 1+i*14], id: 803+i, owner: 4-i*2}
+    koma[603+i] = {role1: "飛", role2: "龍", status: 1, place: [11-i%2*6, 2+i*12], id: 603+i, owner: 4-i*2}
+    koma[703+i] = {role1: "角", role2: "馬", status: 1, place: [5+i%2*6, 2+i*12], id: 703+i, owner: 4-i*2}
+    koma[803+i] = {role1: "王", status: 3, place: [8, 1+i*14], id: 803+i, owner: 4-i*2}
 end
 
 #将棋盤の初期設定
@@ -183,7 +184,7 @@ while 1
     while 1
         print "移動する駒の座標を入力 ⇒  "
         ch = gets.to_i
-        chA = [ch/100, ch%10]
+        chA = [ch/100, ch%100]
         if chA[0] < 10
             if koma[board[chA[0]][chA[1]]][:owner] == player
                 break
@@ -191,7 +192,8 @@ while 1
         elsif player == chA[0]-10 && chA[1] <= pow[player]
             hoge3 = 1
             break
-        elsif ch == 404
+        elsif ch == 9999
+            p 17
             hoge1 = 1
             break
         end
@@ -204,7 +206,7 @@ while 1
     while 1
         print "移動先の座標を入力 ⇒  "
         ch = gets.to_i
-        chB = [ch/100, ch%10]
+        chB = [ch/100, ch%100]
         if hoge3 == 1 #持ち駒を打つ
             if moti[player][chA[1]][:id] / 100 == 1 #二歩
                 for i in 1..9
@@ -235,9 +237,9 @@ while 1
                 end
             end
             puts "禁則行為です"
-            ch = 404
+            ch = 9999
         end
-        if ch == 404
+        if ch == 9999
             puts "選択駒がリセットされました"
             hoge3 = 0
             while 1
@@ -251,7 +253,7 @@ while 1
                 elsif player == chA[0]-10 && chA[1] <= pow[player]
                     hoge3 = 1
                     break
-                elsif ch == 404
+                elsif ch == 9999
                     hoge1 = 1
                     break
                 end
@@ -261,7 +263,7 @@ while 1
                 break
             end
         else #自駒を動かす
-            if koma[board[chB[0]][chB[1]]][:owner] == 0 || koma[board[chB[0]][chB[1]]][:owner] == enemy
+            if koma[board[chB[0]][chB[1]]][:owner] == 0 || koma[board[chB[0]][chB[1]]][:owner] == enemy1 || koma[board[chB[0]][chB[1]]][:owner] == enemy2 || koma[board[chB[0]][chB[1]]][:owner] == enemy3
                 if player == 1
                     if Judge1::Judg.ment(koma[board[chA[0]][chA[1]]], chB, koma, board) == 1
                         break
@@ -328,7 +330,7 @@ while 1
             end
         end
         #移動先について
-        if koma[board[chB[0]][chB[1]]][:owner] == enemy #移動先に敵の駒がいる場合
+        if koma[board[chB[0]][chB[1]]][:owner] == enemy1 || koma[board[chB[0]][chB[1]]][:owner] == enemy2 || koma[board[chB[0]][chB[1]]][:owner] == enemy3 #移動先に敵の駒がいる場合
             if koma[board[chB[0]][chB[1]]][:status] == 2 #成っていた場合戻す
                 hoge2 = koma[board[chB[0]][chB[1]]][:role1]
                 koma[board[chB[0]][chB[1]]][:role1] = koma[board[chB[0]][chB[1]]][:role2]
@@ -350,12 +352,28 @@ while 1
     #∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽∽
 
     #王が取られているか確認
-    if koma[800+enemy][:status] == 0
+    wl = 0
+    print "\n"
+    if koma[800+enemy1][:status] == 0
+        loser(enemy)
+        wl += 1
+    end
+    if koma[800+enemy2][:status] == 0
+        loser(enemy)
+        wl += 1
+    end
+    if koma[800+enemy3][:status] == 0
+        loser(enemy)
+        wl += 1
+    end
+    if wl == 3
         winner = player
     end
 
-    #turn加算
-    tik += 1; turn += tik%4; player = 4-tik%4
+    enemy1 = enemy2
+    enemy2 = enemy3
+    enemy3 = player
+    tik += 1; turn = (tik)/4+1; player = tik%4+1
 
     #画面消去
     puts "\e[H\e[2J"
@@ -364,12 +382,25 @@ while 1
     break if  winner != 0
 end
 
+def loser(enemy)
+    if enemy == 1
+        loser = "北"
+    elsif enemy == 2
+        loser = "東"
+    elsif enemy == 3
+        loser = "南"
+    else enemy == 4
+        loser = "西"
+    end
+    print "Loser! #{loser}局\n"
+end
+
 if winner == 1
-    puts "北局が勝利しました"
+    puts "\n\n\n北局が勝利しました"
 elsif winner == 2
-    puts "東局が勝利しました"
+    puts "\n\n\n東局が勝利しました"
 elsif winner == 3
-    puts "南局が勝利しました"
+    puts "\n\n\n南局が勝利しました"
 elsif winner == 4
-    puts "西局が勝利しました"
+    puts "\n\n\n西局が勝利しました"
 end
